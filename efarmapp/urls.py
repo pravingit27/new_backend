@@ -1,7 +1,12 @@
-from django.urls import path
+from django.urls import path,include
 from django.conf.urls import url
-from .views import ListCategory,DetailCategory,ListUser,DetailUser,ListCart,DetailCart,ListProduct,DetailProduct
-#from views import product_view
+from .views import ListCategory,DetailCategory,ListCart,DetailCart,ListProduct,DetailProduct,ListAdmin
+from . import views
+from rest_framework import routers
+router = routers.DefaultRouter()
+
+router.register(r'admin', views.ListAdmin)
+router.register(r'admin/<str:pk>',views.ListAdmin)
 
 urlpatterns = [
     
@@ -13,9 +18,14 @@ urlpatterns = [
     #path('products/getbyUsername/',DetailProduct.as_view(),name='productview'),
     #url(r'^products/(?P<name>\w+)/$', product_view ,name='profile_view'),
 
-    path('users',ListUser.as_view(),name='users'),
-    path('users/<int:pk>/',DetailUser.as_view(),name='singleusers'),
+    #path('seller',ListAdmin.as_view(),name='admin'),
+    path('login',views.signin,name='login'),
+    path('logout/<int:id>/',views.signout,name='logout'),
+
+    #path('users',ListUser.as_view(),name='users'),
+    #path('users/<int:pk>/',DetailUser.as_view(),name='singleusers'),
 
     path('carts',ListCart.as_view(),name='carts'),
     path('carts/<int:pk>/',DetailCart.as_view(),name='singlecart'),
+    path('',include(router.urls))
 ]
