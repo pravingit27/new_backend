@@ -3,8 +3,12 @@ from .models import Category,Product,cart,Admin
 #from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework.decorators import authentication_classes,permission_classes
+from rest_framework.serializers import Serializer
+
 
 class RegisterSerializer(serializers.ModelSerializer):
+    #product = ProductUserSerializer(many=True,read_only=True)
+    products = serializers.PrimaryKeyRelatedField(many=True,read_only=True)
     def create(self, validated_data):
         password = validated_data.pop('password',None)
         instance = self.Meta.model(**validated_data)
@@ -25,8 +29,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Admin
-        #extra_kwargs = {'password':{'write only':True}}
-        fields = ('name','email','password','phone_number','farm_name','username')
+        #extra_kwargs = {'products':{'write only':True}}
+        fields = ('name','email','password','phone_number','farm_name','username','products')
+       
         
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -73,7 +78,7 @@ class ProductSerializer(serializers.ModelSerializer):
                
 
 #class UserSerializer(serializers.ModelSerializer):
- #   products = serializers.PrimaryKeyRelatedField(many=True, queryset=Product.objects.all())
+    #products = serializers.PrimaryKeyRelatedField(many=True, queryset=Product.objects.all())
     
   #  class Meta:
    #     model = User

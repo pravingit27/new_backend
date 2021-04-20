@@ -3,20 +3,6 @@ from django.contrib.auth.models import User
 from django.contrib.auth.models import AbstractUser
 
 
-class Admin(AbstractUser):
-    name = models.CharField(max_length=100,default='Anonymous')
-    farm_name = models.CharField(max_length=100,blank=True,null=True)
-    phone_number = models.CharField(max_length=20,blank=True,null=True)
-    email = models.EmailField(max_length=40)
-    username = models.CharField(max_length=50,unique=True,primary_key=True)
-    #user_id = models.AutoField(primary_key=True,default="")
-    password = models.CharField(max_length=20)
-    session_token = models.CharField(max_length=10,default=0)
-    created_at = models.DateField(auto_now_add=True)
-
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = []
-
 class Category(models.Model):
     title = models.CharField(max_length=300)
 
@@ -43,10 +29,24 @@ class Product(models.Model):
     def __str__(self):
         return '{} {}'.format(self.name, self.price)
 
+class Admin(AbstractUser):
+    name = models.CharField(max_length=100,default='Anonymous')
+    farm_name = models.CharField(max_length=100,blank=True,null=True)
+    phone_number = models.CharField(max_length=20,blank=True,null=True)
+    email = models.EmailField(max_length=40)
+    username = models.CharField(max_length=50,unique=True,primary_key=True)
+    #product = models.ForeignKey('Product',related_name='products',on_delete=models.CASCADE,null=True,blank=True)
+    password = models.CharField(max_length=20)
+    session_token = models.CharField(max_length=10,default=0)
+    created_at = models.DateField(auto_now_add=True)
+
+    USERNAME_FIELD = 'username'
+    REQUIRED_FIELDS = []
+
 class cart(models.Model):
     cart_id = models.OneToOneField(Admin, on_delete=models.CASCADE, primary_key=True)
     created_at = models.DateField(auto_now_add=True)
-    #products = models.ManyToManyField(Product)
+    products = models.ManyToManyField(Product)
 
     class Meta:
         ordering = ['-created_at']

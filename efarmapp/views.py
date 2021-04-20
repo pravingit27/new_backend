@@ -19,8 +19,8 @@ def generate_session_token(length=10):
 def signin(request):
 	if not request.method =='POST':
 		return JsonResponse({'error':'send a post request with valid parameter'})
-	username = request.POST['username']
-	password = request.POST['password']
+	username = request.POST.get('username')
+	password = request.POST.get('password')
 
 	#if not re.match("^[\w\.\+\-]+\0[\w]+\.[a-z]{2,3}$",username):
 	#	return JsonResponse({'error':'Enter a valid username'})
@@ -29,8 +29,8 @@ def signin(request):
      #   return "userName is not valid"
      
 
-	if len(password)< 4:
-		return JsonResponse({'error':'password needs to be atleast 4 characters'})
+	#if len(password)< 4:
+	#	return JsonResponse({'error':'password needs to be atleast 4 characters'})
 
 	UserModel = get_user_model()
 
@@ -56,20 +56,20 @@ def signin(request):
 		   return JsonResponse({'errors':'not logged in'})
 					   
 	except UserModel.DoesNotExist:
-		return JsonResponse({'error':'Invalid email'})
+		return JsonResponse({'error':'Invalid username'})
 
-def signout(request,id):
+def signout(request,username):
 	logout(request)
 
 	UserModel = get_user_model()
 
 	try:
-		user = UserModel.objects.get(pk=id)
+		user = UserModel.objects.get(pk=username)
 		user.session_token = "0"
 		user.save()
 
 	except UserModel.DoesNotExist:
-		return JsonResponse({'error':'invalid user id'})
+		return JsonResponse({'error':'invalid user name'})
 	
 	return JsonResponse({'success':'logout success'})
 
