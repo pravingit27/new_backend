@@ -135,6 +135,7 @@ class DetailCart(generics.RetrieveUpdateDestroyAPIView):
 	queryset = cart.objects.all()
 	serializer_class = CartSerializer
 
+
 	
 
 	

@@ -54,3 +54,5 @@ class cart(models.Model):
     def __str__(self):
         return '{}' .format(self.cart_id)
 
+
+

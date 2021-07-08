@@ -25,7 +25,7 @@ SECRET_KEY = 'kl%iftibe310z0o&m2#nf1s%ny7)ha+gn6_bb8@o7a26rwwbfb'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -72,6 +72,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'efarm.urls'
@@ -150,3 +151,12 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 AUTH_USER_MODEL = "efarmapp.Admin"
+
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000",
+]
+
+import dj_database_url
+
+prod_db=dj_database_url.config(conn_max_age=500)
+DATABASES['default'].update(prod_db)
