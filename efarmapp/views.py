@@ -74,9 +74,8 @@ def signout(request,username):
 	return JsonResponse({'success':'logout success'})
 
 class ListAdmin(viewsets.ModelViewSet):
-	
-	permission_classes_by_action = {'create':[AllowAny]}
 
+	permission_classes_by_action = {'create':[AllowAny]}
 	queryset = Admin.objects.all()
 	serializer_class = RegisterSerializer
 
