@@ -154,6 +154,7 @@ AUTH_USER_MODEL = "efarmapp.Admin"
 
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
+    'https://onlinefarmapi.herokuapp.com/',
 ]
 
 import dj_database_url
