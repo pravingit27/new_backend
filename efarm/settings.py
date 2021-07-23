@@ -155,6 +155,9 @@ AUTH_USER_MODEL = "efarmapp.Admin"
 CORS_ORIGIN_WHITELIST = [
     "http://localhost:3000",
     "http://stark-inlet-31769.herokuapp.com/",
+    "https://stark-inlet-31769.herokuapp.com/",
+    "https://stark-inlet-31769.herokuapp.com",
+    "http://stark-inlet-31769.herokuapp.com"
 ]
 
 import dj_database_url
