@@ -37,7 +37,7 @@ class Admin(AbstractUser):
     username = models.CharField(max_length=255,unique=True,primary_key=True)
     #product = models.ForeignKey('Product',related_name='products',on_delete=models.CASCADE,null=True,blank=True)
     password = models.CharField(max_length=255)
-    session_token = models.CharField(max_length=10,default=0)
+    session_token = models.CharField(max_length=255,default=0)
     created_at = models.DateField(auto_now_add=True)
 
     USERNAME_FIELD = 'username'
