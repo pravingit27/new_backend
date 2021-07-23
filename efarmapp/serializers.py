@@ -6,6 +6,7 @@ from rest_framework.decorators import authentication_classes,permission_classes
 from rest_framework.serializers import Serializer
 
 class RegisterSerializer(serializers.ModelSerializer):
+    
     #product = ProductUserSerializer(many=True,read_only=True)
     products = serializers.PrimaryKeyRelatedField(many=True,read_only=True)
     def create(self, validated_data):

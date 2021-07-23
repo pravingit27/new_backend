@@ -106,7 +106,7 @@ class DetailProduct(generics.RetrieveUpdateDestroyAPIView):
 	queryset = Product.objects.all()
 	serializer_class = ProductSerializer
 
-	3#@action(methods=['get'], detail=False,
+	#@action(methods=['get'], detail=False,
 	  #      url_path='products/(?P<name>\w+)')
 	#def getByUsername(self, request, name):
 	 #   product = get_object_or_404(Product, name=name)
